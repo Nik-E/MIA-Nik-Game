@@ -67,7 +67,7 @@ var selectedShapeImg = this.selectedShapeImg;
 };
 var shapes = [
     {
-     type: "triangle-PNG-Pic.png",
+     type: "Triangle-PNG-Pic.png",
      width: 65,
      height: 65,
      top: 0,
@@ -89,7 +89,7 @@ var shapes = [
 
   },
   {
-   type: "circle-transparent-PNG.png",
+   type: "Circle-Transparent-PNG.png",
    width: 65,
    height: 65,
    top: 0,
@@ -100,7 +100,7 @@ var shapes = [
 
   },
   {
-   type: "star_filled.png",
+   type: "Star_filled.png",
    width: 65,
    height: 65,
    top: 0,
