@@ -9,18 +9,22 @@
     <link rel="stylesheet" href="style.min.css">
   </head>
   <body>
-  <div class='container'>
+    <!-- <div id='start-screen'>
+      <button id='start-button'>Begin</button>
+    </div> -->
+    <div id='game'>
+      <div class='container'>
     <div class="row">
-      <header class='col-md-12' id='header'>
+      <header class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='header'>
         <div class='info' id='points'>
           0
         </div>
         <div class='info' id='score-mult'>
-          x12
+          x<span id='scmult'>1</span>
        </div>
      </header>
     <div class="row" id='central'>
-      <div class='col-md-1'id='channel'>
+      <div class='col-xs-1 col-sm-1 col-md-1 col-lg-1'id='channel'>
         <canvas id='canvas' width='72%' height='425%'></canvas>
        </div>
 
@@ -31,12 +35,12 @@
 
       </div>
     <div class='row'>
-        <footer class='col-md-12'id='footer'>
+        <footer class='col-xs-12 col-sm-12 col-md-12 col-lg-12'id='footer'>
           <div class='info' id='timer'>
-            1:34
+            00:30
             </div>
           <div class='info' id='speed-mult'>
-              150%
+              <span id='spmult'>100</span>%
             </div>
         </footer>
         </div>
@@ -47,6 +51,7 @@
 
 
   </div>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

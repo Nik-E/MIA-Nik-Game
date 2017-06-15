@@ -1,375 +1,281 @@
 console.log('APP.JS ONLINE');
 
+// $(document).ready(function(){
+//   $('#game').hide();
+//   $('#start-button').one('click',function (){
+//       $('#start-screen').fadeOut();
+//       $('#game').fadeIn();
+//
+//       startGame();
+//   });
+// });
+
 //----------------DO NOT TOUCH, THIS SHIT WORKS--------------
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
-var scroll = -100;
-var scrollDX = 1;
+var scroll = -65;
+var scrollDX = 2;
 
 var canvasLeft = canvas.offsetLeft;
 var canvasTop = canvas.offsetTop;
 var elements = [];
 
-var points = 0;
-$('#points').html(points);
+var bonus = 1;
+var score = 0;
+var speed = 100;
 //-----------------------------------------------------------
 
-// //
-// function draw(ctx,circle){
-//
-//   if (!circle.complete){
-//     setTimeout(function(){
-//       draw(ctx,circle);
-//     },50);
-//     return;
-//   }
-//   ctx.drawImage(circle,3.5,0,65,65);
-// }
-//
-// var circle = new Image();
-// circle.src = "/Users/nik.echenique/code/projects/game/MIA-Nik-Game/Circle-Transparent-PNG.png";
-// draw(ctx,circle);
-// circle.addEventListener('load', function () {
-//
-// var interval = setInterval(function() {
-//      var x = 3.5, y = scroll;
-//
-//      return function () {
-//        ctx.clearRect(0, 0, innerWidth, innerHeight);
-//        ctx.drawImage(circle, x, y,65,65);
-//
-//        y += scrollDX;
-//        if (y > innerWidth) {
-//          y = scroll;
-//        }
-//      };
-//    }(), 10);
-//  }, false);
-
-// function draw(ctx,square){
-//
-//   if (!square.complete){
-//     setTimeout(function(){
-//       draw(ctx,square);
-//     },50);
-//     return;
-//   }
-//   ctx.drawImage(square,4,0,65,65);
-// }
-//
-// var square = new Image();
-// square.src = "/Users/nik.echenique/code/projects/game/MIA-Nik-Game/square.png";
-// draw(ctx,square);
-// square.addEventListener('load', function () {
-//
-// var interval = setInterval(function() {
-//      var x = 4, y = scroll;
-//
-//      return function () {
-//        ctx.clearRect(0, 0, innerWidth, innerHeight);
-//        ctx.drawImage(square, x, y,65,65);
-//
-//        y += scrollDX;
-//        if (y > innerWidth) {
-//          y = scroll;
-//        }
-//      };
-//    }(), 10);
-//  }, false);
-
-
-//
-// function draw(ctx,triangle){
-//
-//   if (!triangle.complete){
-//     setTimeout(function(){
-//       draw(ctx,triangle);
-//     },50);
-//     return;
-//   }
-//   ctx.drawImage(triangle,5,0,65,65);
-// }
-//
-// var triangle = new Image();
-// triangle.src = "/Users/nik.echenique/code/projects/game/MIA-Nik-Game/Triangle-PNG-Pic.png";
-// draw(ctx,triangle);
-// triangle.addEventListener('load', function () {
-//
-// var interval = setInterval(function() {
-//      var x = 4, y = scroll;
-//
-//      return function () {
-//        ctx.clearRect(0, 0, innerWidth, innerHeight);
-//        ctx.drawImage(triangle, x, y,65,65);
-//
-//        y += scrollDX;
-//        if (y > innerWidth) {
-//          y = scroll;
-//        }
-//      };
-//    }(), 10);
-//  }, false);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function draw(ctx,triangle){
-//
-//   if (!triangle.complete){
-//     setTimeout(function(){
-//       draw(ctx,triangle);
-//     },50);
-//     return;
-//   }
-//   ctx.drawImage(triangle,5,0,65,65);
-// }
-//
-// var triangle = new Image();
-// triangle.src = "/Users/nik.echenique/code/projects/game/MIA-Nik-Game/Triangle-PNG-Pic.png";
-// draw(ctx,triangle);
-// triangle.addEventListener('load', function () {
-//
-// var interval = setInterval(function() {
-//      var x = 4, y = scroll;
-//
-//      return function () {
-//        ctx.clearRect(0, 0, innerWidth, innerHeight);
-//        ctx.drawImage(triangle, x, y,65,65);
-//
-//        y += scrollDX;
-//        if (y > innerWidth) {
-//          y = scroll;
-//        }
-//      };
-//    }(), 10);
-//  }, false);
-//
-// Add element.
-
-function TriangleShape(width,height,top,left){
-   this.width = width;
-   this.height = height;
-   this.top = top;
-   this.left = left;
+//---------------Beautiful, Amazing, Gold. I swear to God if you fucking touch this code.........-------------------
+function MovingShapes (){
+  this.shapeType = shapes[(Math.floor(Math.random()*5))];
+  this.selectedShapeImg = new Image();
+  this.selectedShapeImg.src = this.shapeType.type;
+  this.top = this.shapeType.top + scroll;
+  this.height = this.shapeType.height;
+  this.left = this.shapeType.left;
+  this.width = this.shapeType.width;
+  this.scoreEffect = this.shapeType.scoreEffect;
+  this.bonusEffect = this.shapeType.bonusEffect;
+  this.speedEffect = this.shapeType.speedEffect;
 }
 
-elements.push(
-  new TriangleShape(65,65,0,5)
+MovingShapes.prototype.drawSelectedShape =
 
-);
+  function (){
+var shapePicked = this.shapeType;
+var myTop = this.top;
+var selectedShapeImg = this.selectedShapeImg;
 
-// Render elements.
-elements.forEach(function(element) {
-  console.log('ELEMENT AT', element);
-  function draw(ctx,triangle){
 
-    if (!triangle.complete){
-      setTimeout(function(){
-        draw(ctx,triangle);
-      },50);
-      return;
+    function draw(ctx,selectedShapeImg){
+
+      // console.log("non stop shit: ", shapePicked.type, myTop);
+
+      if (!selectedShapeImg.complete){
+        setTimeout(function(){
+          draw(ctx,selectedShapeImg);
+        },50);
+        return;
+      }
+
+      ctx.drawImage(selectedShapeImg, shapePicked.left, myTop, shapePicked.width, shapePicked.height);
     }
-    ctx.drawImage(triangle,element.left,element.top,65,65);
+
+    draw(ctx,selectedShapeImg);
+
+};
+var shapes = [
+    {
+     type: "triangle-PNG-Pic.png",
+     width: 65,
+     height: 65,
+     top: 0,
+     left: 5,
+     scoreEffect: +2,
+     bonusEffect: +0.5,
+     speedEffect: +1,
+
+   },
+   {
+    type: "square.png",
+    width: 65,
+    height: 65,
+    top: 0,
+    left: 4,
+    scoreEffect: -1,
+    bonusEffect: -0.25,
+    speedEffect: -0.25,
+
+  },
+  {
+   type: "circle-transparent-PNG.png",
+   width: 65,
+   height: 65,
+   top: 0,
+   left: 3.5,
+   scoreEffect: +2,
+   bonusEffect: +0.5,
+   speedEffect: +0.5,
+
+  },
+  {
+   type: "star_filled.png",
+   width: 65,
+   height: 65,
+   top: 0,
+   left: 3.5,
+   scoreEffect: +3,
+   bonusEffect: -2,
+   speedEffect: -5,
+
+  },
+  {
+   type: "120px-Gelbe_Raute.png",
+   width: 65,
+   height: 65,
+   top: 0,
+   left: 3.5,
+   scoreEffect: -10,
+   bonusEffect: +5,
+   speedEffect: +5,
+
+  }
+  ];
+
+
+
+
+
+
+function makeFirstFive() {
+    setTimeout(function(){
+      var shape1 = new MovingShapes();
+      shape1.drawSelectedShape();
+      elements.push(shape1);
+    },1000);
+    setTimeout(function(){
+      var shape2 = new MovingShapes();
+      shape2.drawSelectedShape();
+      elements.push(shape2);
+    },2500);
+    setTimeout(function(){
+      var shape3 = new MovingShapes();
+      shape3.drawSelectedShape();
+      elements.push(shape3);
+    },4000);
+    setTimeout(function(){
+      var shape4 = new MovingShapes();
+      shape4.drawSelectedShape();
+      elements.push(shape4);
+    },5500);
+    setTimeout(function(){
+      var shape5 = new MovingShapes();
+      shape5.drawSelectedShape();
+      elements.push(shape5);
+    },7000);
+
   }
 
-  var triangle = new Image();
-  triangle.src = "Triangle-PNG-Pic.png";
-  draw(ctx,triangle);
-  triangle.addEventListener('load', function () {
-
-  var interval = setInterval(function() {
-       var x = element.left;
-
-       return function () {
-         ctx.clearRect(0, 0, innerWidth, innerHeight);
-         ctx.drawImage(triangle, x, element.top, 65,65);
-
-         element.top += scrollDX;
-         if (element.top > innerWidth) {
-           element.top = scroll;
-         }
-       };
-     }(), 10);
-   }, false);
+makeFirstFive();
+setInterval(function(){
 
 
-    ctx.fillRect(triangle.left,triangle.top,triangle.width, triangle.height);
-});
+  setTimeout(function(){
+    var shape1 = new MovingShapes();
+    shape1.drawSelectedShape();
+    elements.push(shape1);
+    },1000);
+  setTimeout(function(){
+    var shape2 = new MovingShapes();
+    shape2.drawSelectedShape();
+    elements.push(shape2);
+    },2500);
+  setTimeout(function(){
+    var shape3 = new MovingShapes();
+    shape3.drawSelectedShape();
+    elements.push(shape3);
+    },4000);
+  setTimeout(function(){
+    var shape4 = new MovingShapes();
+    shape4.drawSelectedShape();
+    elements.push(shape4);
+    },5500);
+  setTimeout(function(){
+    var shape5 = new MovingShapes();
+    shape5.drawSelectedShape();
+    elements.push(shape5);
+    },7000);
 
 
+},7500);
+
+var elements = [];
+
+var interval = setInterval(function() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+  var updatedElements = [];
+
+  elements.forEach(function (element) {
+    element.top += scrollDX;
+    element.drawSelectedShape();
+
+
+
+
+
+
+    if (element.top < innerHeight) {
+      updatedElements.push(element);
+    }
+  });
+
+  elements = updatedElements;
+
+}, 1000/30);
+
+//----------------------------------
+
+
+//-----------Click functionality------
  // Add event listener for `click` events.
  canvas.addEventListener('click', function(event) {
      var x = event.pageX - canvasLeft,
          y = event.pageY - canvasTop;
-     console.log(x, y);
+
 
  // Collision detection between clicked offset and element
-     elements.forEach(function(oneElement) {
-         if (y > oneElement.top && y < oneElement.top + oneElement.height && x > oneElement.left && x < oneElement.left + oneElement.width) {
-           points += 1;
+     elements.forEach(function(element) {
+       var shapeTop = element.top;
+       var shapeHeight = element.height;
+       var shapeLeft = element.left;
+       var shapeWidth = element.width;
+       var shapeScoreEffect = element.scoreEffect;
+       var shapeBonusEffect = element.bonusEffect;
+       var shapeSpeedEffect = element.speedEffect;
+
+         if (y > shapeTop && y < shapeTop + shapeHeight && x > shapeLeft && x < shapeLeft + shapeWidth) {
+
+              bonus=bonus+shapeBonusEffect;
+              var scmult = document.getElementById('scmult');
+              scmult.innerHTML=bonus;
+
+              score=((score+shapeScoreEffect) * bonus);
+              var points = document.getElementById('points');
+              points.innerHTML=score;
+
+              speed=speed+shapeSpeedEffect;
+              var spmult =document.getElementById('spmult');
+              spmult.innerHTML=speed;
          }
      });
-
- }, false);
-
- // // Add element.
- //
- // function triangle(width,height,top,left){
- //    this.width = width;
- //    this.height = height;
- //    this.top = top;
- //    this.left = left;
- // }
- //
- // elements.push(
- //   new TriangleShape(65,65,0,5)
- //
- // );
- //
- // // Render elements.
- // elements.forEach(function(element) {
- //   function draw(ctx,triangle){
- //
- //     if (!triangle.complete){
- //       setTimeout(function(){
- //         draw(ctx,triangle);
- //       },50);
- //       return;
- //     }
- //     ctx.drawImage(triangle,5,0,65,65);
- //   }
- //
- //   var triangle = new Image();
- //   triangle.src = "/Users/nik.echenique/code/projects/game/MIA-Nik-Game/Triangle-PNG-Pic.png";
- //   draw(ctx,triangle);
- //   triangle.addEventListener('load', function () {
- //
- //   var interval = setInterval(function() {
- //        var x = 4, y = scroll;
- //
- //        return function () {
- //          ctx.clearRect(0, 0, innerWidth, innerHeight);
- //          ctx.drawImage(triangle, x, y,65,65);
- //
- //          y += scrollDX;
- //          if (y > innerWidth) {
- //            y = scroll;
- //          }
- //        };
- //      }(), 10);
- //    }, false);
- //
- //
- //     ctx.fillRect(elements.triangle.left, elements.triangle.top, elements.triangle.width, elements.triangle.height);
- // });
+   }, false);
+//--------------End of Click functionality---
+//---------------------------------------------------------------------------------
 
 
 
 
+//-------Timer---------------
+window.onload = function(){
+  var hou = 0;
+  var sec = 30;
+  var timer = setInterval(function(){
+    var displaySec = sec;
 
+    if (0 <= sec && sec < 10) {
+      displaySec = "0" + sec;
+    }
 
+    document.getElementById("timer").innerHTML = "0"+hou +":" + displaySec;
+    sec--;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function draw(ctx, diamond){
-//   if(!diamond.complete){
-//     setTimeout(function(){
-//       draw(ctx,diamond);
-//     },50);
-//     return;
-//   }
-//   ctx.drawImage(diamond,3.5,0,65,65);
-// }
-//
-//
-// var diamond = new Image();
-// diamond.src = "/Users/nik.echenique/code/projects/game/MIA-Nik-Game/120px-Gelbe_Raute.png";
-// draw(ctx,diamond);
-// diamond.addEventListener('load', function () {
-//
-// var interval = setInterval(function() {
-//      var x = 3.5, y = scroll;
-//
-//      return function () {
-//        ctx.clearRect(0, 0, innerWidth, innerHeight);
-//        ctx.drawImage(diamond, x, y,65,65);
-//
-//        y += scrollDX;
-//        if (y > innerWidth) {
-//          y = scroll;
-//        }
-//      };
-//    }(), 10);
-//  }, false);
-
-//
-//
-// function draw(ctx, star){
-//   if(!star.complete){
-//     setTimeout(function(){
-//       draw(ctx,star);
-//     },50);
-//     return;
-//   }
-//   ctx.drawImage(star,3.5,0,65,65);
-// }
-//
-// var star = new Image();
-// star.src = "/Users/nik.echenique/code/projects/game/MIA-Nik-Game/Star_filled.png";
-// draw(ctx,star);
-// star.addEventListener('load', function () {
-//
-// var interval = setInterval(function() {
-//      var x = 3.5, y = scroll;
-//
-//      return function () {
-//        ctx.clearRect(0, 0, innerWidth, innerHeight);
-//        ctx.drawImage(star, x, y,65,65);
-//
-//        y += scrollDX;
-//        if (y > innerWidth) {
-//          y = scroll;
-//        }
-//      };
-//    }(), 10);
-//  }, false);
+    if(sec < 0)
+    {
+      sec = 0;
+      clearInterval(timer);
+    }
+  }, 1000);
+};
+//---------------------------

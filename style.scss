@@ -1,10 +1,10 @@
 html{
-  background-color: white;
+  background-color: transparent;
   width: 100%;
   height: 100%;
   margin: 0%;
-  background-image: url('/Users/nik.echenique/code/projects/game/MIA-Nik-Game/Mondrian-Art-Puzzles.016.png');
-  background-position: top;
+  background-image: url('Mondrian-Art-Puzzles.016.png');
+  background-repeat: repeat;
 
 }
 body{
@@ -45,42 +45,45 @@ body{
   border-style: solid;
   position: fixed;
   height: 100%;
-  width: 15%;
+  width: 10%;
   left: 42.5%;
   border-top: none;
   border-bottom: none;
   background-color:white;
+
 }
 #points{
   display: inline-block;
   position: fixed;
   top: 0%;
   left: 20%;
-  border: 2px solid red;
+  border:none;
 }
 #score-mult{
   position: fixed;
   top: 0%;
   right: 20%;
   display: inline-block;
-  border: 2px solid green;
+  border: none;
   color: white;
 }
 #timer{
   position: fixed;
   left: 20%;
   display: inline-block;
-  border: 2px solid blue;
+  border: none;
 
 }
 #speed-mult{
-  right: 40%;
+  float:right;
   display: inline-block;
-  border: 2px solid black;
+  border: none;
 
 }
 
 canvas{
+  height: 100%;
+  border-right: 8px black;
   border:none;
   position: fixed;
   left: 43.75%;
