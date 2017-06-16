@@ -6,57 +6,77 @@
 
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
     <link rel="stylesheet" href="style.min.css">
   </head>
   <body>
-    <!-- <div id='start-screen'>
+    <div id='start-screen'>
+    <h1 id='title'>Serra</h1>
       <button id='start-button'>Begin</button>
-    </div> -->
+
+    </div>
     <div id='game'>
-      <div class='container'>
-    <div class="row">
-      <header class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='header'>
+        <div class='container'>
+      <div class="row">
+        <header class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='header'>
+          <!-- <div class='info' id='points'>
+            0
+          </div> -->
+          <!-- <div class='info' id='score-mult'>
+            x<span id='scmult'>1</span>
+         </div> -->
+       </header>
+      <div class="row" id='central'>
+        <div class='col-xs-1 col-sm-1 col-md-1 col-lg-1'id='channel'>
+          <canvas id='canvas' width='72%' height='425%'></canvas>
+         </div>
+
+
+
+
+
+
+        </div>
+      <div class='stats'>
         <div class='info' id='points'>
-          0
+          Points: 0
         </div>
         <div class='info' id='score-mult'>
-          x<span id='scmult'>1</span>
+          Score Multiplier: x<span id='scmult'>1</span>
        </div>
-     </header>
-    <div class="row" id='central'>
-      <div class='col-xs-1 col-sm-1 col-md-1 col-lg-1'id='channel'>
-        <canvas id='canvas' width='72%' height='425%'></canvas>
-       </div>
-
-
-
-
-
-
+        <div class='info' id='timer'>
+      00:30
+          </div>
       </div>
-    <div class='row'>
-        <footer class='col-xs-12 col-sm-12 col-md-12 col-lg-12'id='footer'>
-          <div class='info' id='timer'>
-            00:30
-            </div>
-          <div class='info' id='speed-mult'>
-              <span id='spmult'>100</span>%
-            </div>
-        </footer>
+      <div class='row'>
+          <footer class='col-xs-12 col-sm-12 col-md-12 col-lg-12'id='footer-game'>
+            <!-- <div class='info' id='speed-mult'>
+                <span id='spmult'>100</span>%
+              </div> -->
+          </footer>
+          </div>
         </div>
-      </div>
-
-
 
 
 
   </div>
     </div>
+
+    <div id='game-over-screen'>
+      <h1>Game Over</h1>
+      <p>Your Score</p>
+      <p id='total-points'>0</p>
+      <button id='play-again'>Play Again</button>
+
+    </div>
+
+
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
     <script src='bootstrap-3.3.7-dist/js/bootstrap.min.js'></script>
+    <script src='ion.sound-3.0.7-copy/ion.sound.min.js'></script>
     <script src="app.js"></script>
   </body>
 </html>
